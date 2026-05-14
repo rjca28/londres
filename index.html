@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Londres · Maio 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0d1117;--paper:#f7f4ee;--cream:#ede9e0;--gold:#b8962e;--gold2:#e8c96a;--fog:#9a9589;--white:#ffffff;--d1:#1a3a5c;--d2:#1e4d2b;--d3:#5c1a3a;--r:10px;--r-lg:18px;--shadow:0 2px 20px rgba(13,17,23,.10);--shadow-lg:0 8px 40px rgba(13,17,23,.16)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;overflow-x:hidden}
+.hero{position:relative;min-height:340px;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px 50px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 50%,rgba(184,150,46,.18) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 80% 30%,rgba(30,77,43,.22) 0%,transparent 55%),radial-gradient(ellipse 50% 50% at 55% 80%,rgba(61,26,92,.25) 0%,transparent 60%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(184,150,46,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(184,150,46,.07) 1px,transparent 1px);background-size:48px 48px}
+.hero-label{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold2);opacity:.9;margin-bottom:18px;position:relative}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,10vw,5.5rem);font-weight:300;color:var(--white);line-height:.95;letter-spacing:-1px;position:relative;margin-bottom:6px}
+.hero h1 em{font-style:italic;color:var(--gold2);font-weight:300}
+.hero-sub{font-family:'DM Mono',monospace;font-size:.72rem;color:rgba(255,255,255,.5);letter-spacing:2px;margin-top:18px;position:relative}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:24px;position:relative}
+.chip{background:rgba(255,255,255,.08);border:1px solid rgba(184,150,46,.35);border-radius:40px;padding:6px 16px;font-size:.72rem;color:rgba(255,255,255,.75);letter-spacing:.5px;backdrop-filter:blur(4px)}
+.hero-line{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold2),var(--gold),transparent)}
+.nav-wrap{position:sticky;top:0;z-index:200;background:rgba(247,244,238,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(13,17,23,.1)}
+.nav{max-width:1040px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{flex:0 0 auto;padding:0 26px;height:54px;display:flex;align-items:center;gap:10px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;color:var(--fog);cursor:pointer;background:none;border:none;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;letter-spacing:.2px}
+.nav-btn:hover{color:var(--ink)}
+.nav-btn.active{color:var(--ink);border-bottom-color:var(--gold);font-weight:600}
+.nav-pip{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.content{max-width:1040px;margin:0 auto;padding:36px 16px 80px}
+.panel{display:none;animation:fadeUp .35s ease forwards}
+.panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.day-banner{border-radius:var(--r-lg);padding:30px 36px;margin-bottom:28px;color:var(--white);position:relative;overflow:hidden;display:flex;align-items:center;gap:20px}
+.day-banner.ov{background:linear-gradient(135deg,#0d1117 0%,#1a2a40 60%,#2a1a40 100%)}
+.day-banner.d1{background:linear-gradient(135deg,#0c1e30 0%,#1a3a5c 70%,#2a4a6c 100%)}
+.day-banner.d2{background:linear-gradient(135deg,#0c1e12 0%,#1e4d2b 70%,#2a6040 100%)}
+.day-banner.d3{background:linear-gradient(135deg,#1e0c1a 0%,#5c1a3a 70%,#7a2050 100%)}
+.day-banner::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E")}
+.banner-icon{font-size:3rem;position:relative;z-index:1;flex-shrink:0}
+.banner-text{position:relative;z-index:1}
+.banner-eyebrow{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;opacity:.6;margin-bottom:6px}
+.banner-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:400;line-height:1.1}
+.banner-sub{font-size:.82rem;opacity:.7;margin-top:5px}
+.map-card{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:28px;border:1px solid rgba(13,17,23,.08);background:var(--white)}
+.map-card iframe{width:100%;height:400px;border:none;display:block}
+.map-footer{padding:12px 20px;display:flex;align-items:center;gap:8px;font-size:.72rem;color:var(--fog);border-top:1px solid var(--cream);background:var(--white)}
+.alert{border-radius:var(--r);padding:14px 18px;margin-bottom:18px;font-size:.82rem;line-height:1.6;display:flex;gap:10px;align-items:flex-start}
+.alert.gold{background:#fdf8ec;border:1px solid #e8c96a;color:#5a3e00}
+.alert.ink{background:#f0f2f5;border:1px solid rgba(13,17,23,.12);color:#2a2f36}
+.alert.rust{background:#fdf2ee;border:1px solid #e8a080;color:#5a1800}
+.alert strong{font-weight:600}
+.alert-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+.timeline{display:flex;flex-direction:column}
+.tl-item{display:flex;gap:0}
+.tl-left{display:flex;flex-direction:column;align-items:center;width:52px;flex-shrink:0}
+.tl-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.78rem;font-weight:500;color:var(--white);flex-shrink:0;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.2);border:2px solid rgba(255,255,255,.3)}
+.tl-line{width:1.5px;background:linear-gradient(to bottom,rgba(13,17,23,.15),rgba(13,17,23,.05));flex:1;min-height:16px;margin:3px 0}
+.tl-item:last-child .tl-line{display:none}
+.tl-body{flex:1;padding:0 0 28px 14px}
+.tl-time{font-family:'DM Mono',monospace;font-size:.68rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--fog);margin-bottom:6px}
+.tl-card{background:var(--white);border-radius:var(--r-lg);border:1px solid rgba(13,17,23,.08);box-shadow:var(--shadow);overflow:hidden;transition:box-shadow .2s,transform .2s}
+.tl-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.tl-card-head{padding:16px 20px 12px}
+.tl-card-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--ink);line-height:1.2;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tl-card-addr{font-size:.72rem;color:var(--fog);display:flex;align-items:flex-start;gap:5px;margin-top:3px}
+.tl-card-body{padding:0 20px 16px;font-size:.82rem;color:#3a3a3a;line-height:1.65}
+.tl-card-accent{height:3px;background:var(--cream)}
+.tl-connector{display:flex;align-items:center;gap:8px;padding:4px 0 4px 66px;font-size:.72rem;color:var(--fog);flex-wrap:wrap;margin-bottom:2px}
+.t-pill{display:inline-flex;align-items:center;gap:5px;background:var(--white);border:1px solid rgba(13,17,23,.12);border-radius:30px;padding:4px 12px;font-family:'DM Mono',monospace;font-size:.68rem;font-weight:500;color:var(--ink);white-space:nowrap}
+.t-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.tag{display:inline-flex;align-items:center;gap:3px;font-family:'DM Mono',monospace;font-size:.62rem;font-weight:500;border-radius:4px;padding:2px 8px;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap}
+.tag-free{background:#e8f5e9;color:#1b5e20;border:1px solid #a5d6a7}
+.tag-must{background:#fff8e1;color:#6d4c00;border:1px solid #ffe082}
+.tag-show{background:#f3e5f5;color:#4a148c;border:1px solid #ce93d8}
+.tag-hotel{background:#e3f2fd;color:#0d47a1;border:1px solid #90caf9}
+.tag-flight{background:#fce4ec;color:#880e4f;border:1px solid #f48fb1}
+.flight-strip{background:var(--white);border-radius:var(--r-lg);border:1px solid rgba(13,17,23,.08);box-shadow:var(--shadow);padding:18px 24px;display:flex;align-items:center;gap:20px;margin-bottom:22px;flex-wrap:wrap}
+.flight-number{font-family:'DM Mono',monospace;font-size:1.15rem;font-weight:500;color:var(--ink);background:var(--cream);border-radius:8px;padding:9px 16px;letter-spacing:1.5px;flex-shrink:0}
+.flight-route{flex:1;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.flight-end{text-align:left}
+.flight-city{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;line-height:1}
+.flight-time{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--fog);margin-top:3px}
+.flight-line{flex:1;min-width:60px;display:flex;align-items:center;gap:6px;color:var(--gold)}
+.flight-line::before,.flight-line::after{content:'';flex:1;height:1px}
+.flight-line::before{background:linear-gradient(90deg,var(--cream),var(--gold))}
+.flight-line::after{background:linear-gradient(90deg,var(--gold),var(--cream))}
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:28px}
+.ov-card{background:var(--white);border-radius:var(--r-lg);border:1px solid rgba(13,17,23,.08);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;transition:all .22s}
+.ov-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.ov-card-top{padding:20px 22px 16px;border-bottom:1px solid var(--cream)}
+.ov-card-num{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.ov-dot{width:8px;height:8px;border-radius:50%}
+.ov-card-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600}
+.ov-card-sub{font-size:.72rem;color:var(--fog);margin-top:2px}
+.ov-list{list-style:none;padding:14px 22px 16px}
+.ov-list li{font-size:.82rem;padding:7px 0;border-bottom:1px solid var(--cream);display:flex;align-items:center;gap:9px;color:var(--ink)}
+.ov-list li:last-child{border-bottom:none}
+.tube-box{background:var(--white);border-radius:var(--r-lg);border:1px solid rgba(13,17,23,.08);padding:20px 24px;margin-bottom:22px}
+.tube-box h3{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--fog);margin-bottom:14px}
+.tube-grid{display:flex;flex-wrap:wrap;gap:8px}
+.tube-pill{display:flex;align-items:center;gap:7px;background:var(--paper);border:1px solid var(--cream);border-radius:30px;padding:6px 14px;font-size:.72rem;font-weight:500}
+.divider{display:flex;align-items:center;gap:16px;margin:10px 0 24px;color:var(--fog);font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:2px;text-transform:uppercase}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--cream)}
+@media(max-width:600px){.map-card iframe{height:280px}.day-banner{padding:20px 22px}.banner-icon{font-size:2.2rem}.tl-body{padding-left:10px}.tl-connector{padding-left:52px}.hero{padding:48px 16px 40px;min-height:280px}.nav-btn{padding:0 16px;font-size:.78rem}.flight-strip{padding:14px 18px}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-label">✦ Plano de Viagem · Maio 2026</div>
+  <h1>Lon<em>dres</em></h1>
+  <div class="hero-sub">Ricardo &amp; Filha &nbsp;·&nbsp; 22 – 24 Maio &nbsp;·&nbsp; 3 dias · 2 noites</div>
+  <div class="hero-chips">
+    <span class="chip">✈ TP1352 &amp; TP1361</span>
+    <span class="chip">🏨 The Leonard Hotel</span>
+    <span class="chip">🎭 Annie — New Wimbledon Theatre</span>
+    <span class="chip">🦕 Natural History Museum</span>
+    <span class="chip">👑 Buckingham Palace</span>
+  </div>
+  <div class="hero-line"></div>
+</div>
+
+<div class="nav-wrap">
+  <nav class="nav">
+    <button class="nav-btn active" onclick="show('ov')"><span class="nav-pip" style="background:#b8962e"></span>Visão Geral</button>
+    <button class="nav-btn" onclick="show('d1')"><span class="nav-pip" style="background:#1a3a5c"></span>Dia 1 · Sex 22 Mai</button>
+    <button class="nav-btn" onclick="show('d2')"><span class="nav-pip" style="background:#1e4d2b"></span>Dia 2 · Sáb 23 Mai</button>
+    <button class="nav-btn" onclick="show('d3')"><span class="nav-pip" style="background:#5c1a3a"></span>Dia 3 · Dom 24 Mai</button>
+  </nav>
+</div>
+
+<div class="content">
+
+<!-- ══════════════ VISÃO GERAL ══════════════ -->
+<div id="p-ov" class="panel active">
+  <div class="day-banner ov">
+    <div class="banner-icon">🗺️</div>
+    <div class="banner-text">
+      <div class="banner-eyebrow">✦ Itinerário Completo</div>
+      <div class="banner-title">Mapa Geral da Viagem</div>
+      <div class="banner-sub">Todos os pontos de interesse · 22 a 24 de Maio de 2026</div>
+    </div>
+  </div>
+
+  <div class="map-card">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m50!1m12!1m3!1d63722!2d-0.178!3d51.480!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m35!3e2!4m5!1s0x48760542573cc18d%3A0xa394dc5bc2ad955c!2sThe%20Leonard%20Hotel!3m2!1d51.5147!2d-0.15785!4m5!1s0x4876054bb37af7c7%3A0x4952c040e3dc6b74!2sHyde%20Park!3m2!1d51.5073!2d-0.1657!4m5!1s0x4876054bb1f2c77f%3A0x9b2d7c83a9af5ab7!2sBuckingham%20Palace!3m2!1d51.5014!2d-0.1419!4m5!1s0x487604dc7a3b5893%3A0x7b8c4e9fca7d2ac4!2sNatural%20History%20Museum!3m2!1d51.4967!2d-0.1764!4m5!1s0x4876085284ecee17%3A0xd7aa76b93babbcdc!2sNew%20Wimbledon%20Theatre!3m2!1d51.4192!2d-0.2015!4m5!1s0x487604c88fb71d35%3A0x9b2c9c95f7b3af4b!2sCovent%20Garden!3m2!1d51.5117!2d-0.124!5e0!3m2!1spt!2spt!4v1700000000010" allowfullscreen loading="lazy"></iframe>
+    <div class="map-footer">📍 Hotel · Hyde Park · Buckingham Palace · St James's Park · Natural History Museum · Science Museum · New Wimbledon Theatre · Covent Garden</div>
+  </div>
+
+  <div class="ov-grid">
+    <div class="ov-card" onclick="show('d1')">
+      <div class="ov-card-top">
+        <div class="ov-card-num"><span class="ov-dot" style="background:#1a3a5c"></span>Sexta-feira · 22 de Maio</div>
+        <div class="ov-card-title">Chegada &amp; Westminster</div>
+        <div class="ov-card-sub">TP1352 chega 12:45 · Tarde pelos parques reais</div>
+      </div>
+      <ul class="ov-list">
+        <li>🛬 TP1352 aterragem 12:45 Heathrow</li>
+        <li>🏨 Check-in The Leonard Hotel (15:00)</li>
+        <li>🌿 Hyde Park &amp; Serpentine</li>
+        <li>👑 Buckingham Palace &amp; Victoria Memorial</li>
+        <li>🦢 St James's Park</li>
+      </ul>
+    </div>
+    <div class="ov-card" onclick="show('d2')">
+      <div class="ov-card-top">
+        <div class="ov-card-num"><span class="ov-dot" style="background:#1e4d2b"></span>Sábado · 23 de Maio</div>
+        <div class="ov-card-title">Museus &amp; Annie</div>
+        <div class="ov-card-sub">South Kensington de manhã · Teatro à noite</div>
+      </div>
+      <ul class="ov-list">
+        <li>🦕 Natural History Museum (10:00)</li>
+        <li>🚀 Science Museum (13:30)</li>
+        <li>🍽️ Jantar em Wimbledon (18:00)</li>
+        <li>🎭 Annie — New Wimbledon Theatre (19:00)</li>
+      </ul>
+    </div>
+    <div class="ov-card" onclick="show('d3')">
+      <div class="ov-card-top">
+        <div class="ov-card-num"><span class="ov-dot" style="background:#5c1a3a"></span>Domingo · 24 de Maio</div>
+        <div class="ov-card-title">Covent Garden &amp; Regresso</div>
+        <div class="ov-card-sub">Check-out · Mercado coberto · TP1361 16:35</div>
+      </div>
+      <ul class="ov-list">
+        <li>🏨 Check-out até às 12:00</li>
+        <li>🎪 Covent Garden — animação de rua</li>
+        <li>🛫 TP1361 parte 16:35 · Lisboa 19:25</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tube-box">
+    <h3>🚇 Linhas de Metro Utilizadas</h3>
+    <div class="tube-grid">
+      <div class="tube-pill"><span class="t-dot" style="background:#003399"></span>Piccadilly Line — Heathrow ↔ Centro</div>
+      <div class="tube-pill"><span class="t-dot" style="background:#DC241F"></span>Central Line — Marble Arch ↔ transferências</div>
+      <div class="tube-pill"><span class="t-dot" style="background:#007229"></span>District Line — South Kensington ↔ Wimbledon (direto!)</div>
+      <div class="tube-pill"><span class="t-dot" style="background:#FFD329;border:1px solid #bbb"></span>Circle Line — South Kensington / conexões</div>
+    </div>
+  </div>
+
+  <div class="alert gold"><span class="alert-icon">💳</span><div><strong>Dica essencial:</strong> Usar cartão de débito/crédito contactless em toda a rede TfL. O sistema aplica cap diário automático — nunca se paga mais do que um day travelcard. App recomendada: <strong>Citymapper</strong>.</div></div>
+  <div class="alert ink"><span class="alert-icon">📱</span><div><strong>Antes de ir:</strong> Reservar bilhetes gratuitos do Natural History Museum em <strong>nhm.ac.uk</strong> e do Science Museum em <strong>sciencemuseum.org.uk</strong> — essencial ao sábado para evitar filas.</div></div>
+</div>
+
+<!-- ══════════════ DIA 1 ══════════════ -->
+<div id="p-d1" class="panel">
+  <div class="day-banner d1">
+    <div class="banner-icon">✈️</div>
+    <div class="banner-text">
+      <div class="banner-eyebrow">✦ Dia Um · Sexta-feira</div>
+      <div class="banner-title">22 de Maio · Chegada &amp; Westminster</div>
+      <div class="banner-sub">TP1352 aterra às 12:45 · Tarde a pé pelos parques reais</div>
+    </div>
+  </div>
+
+  <div class="flight-strip">
+    <div class="flight-number">TP 1352</div>
+    <div class="flight-route">
+      <div class="flight-end"><div class="flight-city">🇵🇹 Lisboa</div><div class="flight-time">partida 10:00</div></div>
+      <div class="flight-line">✈</div>
+      <div class="flight-end"><div class="flight-city">🇬🇧 Heathrow</div><div class="flight-time">chegada 12:45</div></div>
+    </div>
+  </div>
+
+  <div class="map-card">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m34!1m12!1m3!1d9945!2d-0.148!3d51.508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m19!3e2!4m5!1s0x48760542573cc18d%3A0xa394dc5bc2ad955c!2sThe%20Leonard%20Hotel!3m2!1d51.5147!2d-0.1579!4m5!1s0x4876054bb37af7c7%3A0x4952c040e3dc6b74!2sHyde%20Park!3m2!1d51.5073!2d-0.1657!4m5!1s0x4876054bb1f2c77f%3A0x9b2d7c83a9af5ab7!2sBuckingham%20Palace!3m2!1d51.5014!2d-0.1419!5e0!3m2!1spt!2spt!4v1700000000011" allowfullscreen loading="lazy"></iframe>
+    <div class="map-footer">📍 The Leonard Hotel → Hyde Park → Buckingham Palace → St James's Park — percurso maioritariamente a pé (~4 km total)</div>
+  </div>
+
+  <div class="alert gold"><span class="alert-icon">🚇</span><div><strong>Do aeroporto ao hotel:</strong> Heathrow → <strong>Piccadilly Line</strong> (azul escuro) até <strong>Hyde Park Corner</strong> ou <strong>Green Park</strong> — ~55 min. Depois 10 min a pé ou táxi breve. Check-in disponível a partir das <strong>15:00</strong>.</div></div>
+
+  <div class="divider">Itinerário do dia</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#1a3a5c">1</div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-time">15:00</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#1a3a5c,#378ADD)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">🏨 The Leonard Hotel <span class="tag tag-hotel">Check-in</span></div>
+            <div class="tl-card-addr">📍 15 Seymour Street, Westminster, London W1H 7JW &nbsp;·&nbsp; +44 20 7935 2010</div>
+          </div>
+          <div class="tl-card-body">Check-in a partir das 15:00. Hotel boutique elegante num edifício histórico edwardiano, a 5 minutos de Marble Arch e Oxford Street. Deixar a bagagem, refrescar e partir para a tarde sem stress.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-connector"><div class="t-pill">🚶 5 min a pé</div>Seymour Street → Bayswater Road → entrada norte de Hyde Park</div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#1e6b30">2</div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-time">15:30 – 17:00</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#1e6b30,#81c784)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">🌿 Hyde Park &amp; Serpentine <span class="tag tag-free">Gratuito</span></div>
+            <div class="tl-card-addr">📍 The Serpentine, Hyde Park, London W2 2UH</div>
+          </div>
+          <div class="tl-card-body">Passeio descontraído à chegada — o antídoto perfeito para o voo. O lago Serpentine (40 acres) tem aluguer de barcos (~£12/30 min). Patos, cisnes e esquilos por todo o lado. Sem horários obrigatórios, só tempo de qualidade.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-connector"><div class="t-pill">🚶 15 min a pé</div>Pelo Green Park em direção ao Palácio — caminho muito agradável</div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#b8962e">3</div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-time">17:15 – 18:00</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#b8962e,#e8c96a)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">👑 Buckingham Palace &amp; Victoria Memorial <span class="tag tag-free">Gratuito</span> <span class="tag tag-must">Ícone</span></div>
+            <div class="tl-card-addr">📍 Buckingham Palace, London SW1A 1AA &nbsp;·&nbsp; +44 303 123 7300</div>
+          </div>
+          <div class="tl-card-body">Ao fim da tarde há muito menos visitantes — luz dourada perfeita para fotografias junto à <strong>Victoria Memorial</strong> e aos portões. O <strong>Changing of the Guard</strong> em maio está confirmado para os dias 25, 27, 29 e 30 (não disponível na sexta 22). Os State Rooms abrem apenas julho–setembro.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-connector"><div class="t-pill">🚶 3 min a pé</div>Canada Gate → entrada de St James's Park</div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#1a5c5c">4</div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-time">18:00 – 18:45</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#1a5c5c,#4db6ac)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">🦢 St James's Park <span class="tag tag-free">Gratuito</span></div>
+            <div class="tl-card-addr">📍 St James's Park, London SW1A 2BJ &nbsp;·&nbsp; Aberto 05:00–00:00</div>
+          </div>
+          <div class="tl-card-body">O mais antigo dos parques reais de Londres. Atravessar pelo <strong>Blue Bridge</strong> — vista icónica do London Eye ao fundo do lago. Os pelicanos têm feeding diário às 14:30 junto à Duck Island Cottage (para amanhã!). Terminar com jantar tranquilo na zona de Victoria.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-connector">
+      <div class="t-pill"><span class="t-dot" style="background:#007229"></span>District/Circle</div>St James's Park station ou
+      <div class="t-pill"><span class="t-dot" style="background:#003399"></span>Piccadilly</div>Green Park → Marble Arch ~15 min
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#5c3a1a">5</div></div>
+      <div class="tl-body">
+        <div class="tl-time">20:00+</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#5c3a1a,#bcaaa4)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">🍽️ Jantar &amp; Regresso ao Hotel</div>
+            <div class="tl-card-addr">📍 Zona Marble Arch / Edgware Road / Victoria</div>
+          </div>
+          <div class="tl-card-body">Várias opções perto do hotel: Seymour Street, Edgware Road (excelentes restaurantes do Médio Oriente, abertos tarde) ou qualquer sítio em Victoria. O hotel fica a 5 min a pé de Marble Arch.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ DIA 2 ══════════════ -->
+<div id="p-d2" class="panel">
+  <div class="day-banner d2">
+    <div class="banner-icon">🦕</div>
+    <div class="banner-text">
+      <div class="banner-eyebrow">✦ Dia Dois · Sábado</div>
+      <div class="banner-title">23 de Maio · Museus &amp; Annie</div>
+      <div class="banner-sub">South Kensington de manhã · 🎭 Estreia do tour de Annie à noite</div>
+    </div>
+  </div>
+
+  <div class="map-card">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m34!1m12!1m3!1d30030!2d-0.187!3d51.465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m19!3e3!4m5!1s0x487604dc7a3b5893%3A0x7b8c4e9fca7d2ac4!2sNatural%20History%20Museum%2C%20Cromwell%20Rd!3m2!1d51.4967!2d-0.1764!4m5!1s0x487604dc81314343%3A0x21c36e3a9df6cb9e!2sScience%20Museum%2C%20Exhibition%20Rd!3m2!1d51.4972!2d-0.1767!4m5!1s0x4876085284ecee17%3A0xd7aa76b93babbcdc!2sNew%20Wimbledon%20Theatre%2C%2093%20The%20Broadway!3m2!1d51.4192!2d-0.2015!5e0!3m2!1spt!2spt!4v1700000000012" allowfullscreen loading="lazy"></iframe>
+    <div class="map-footer">📍 Natural History Museum → Science Museum (3 min a pé) → New Wimbledon Theatre via District Line (~35 min direto, sem mudar)</div>
+  </div>
+
+  <div class="alert gold"><span class="alert-icon">🚇</span><div><strong>Deslocação de manhã:</strong> Hotel → <strong>Marble Arch</strong> <em>(Central Line, vermelha)</em> → mudar para <strong>South Kensington</strong> <em>(District/Circle, verde)</em> — ~18 min total. <strong>⚠️ Reservar bilhetes gratuitos NHM em nhm.ac.uk antes de ir!</strong></div></div>
+
+  <div class="divider">Itinerário do dia</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#1e4d2b">1</div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-time">10:00 – 12:30</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#1e4d2b,#66bb6a)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">🦕 Natural History Museum <span class="tag tag-free">Gratuito</span> <span class="tag tag-must">Imperdível</span></div>
+            <div class="tl-card-addr">📍 Cromwell Road, South Kensington, London SW7 5BD &nbsp;·&nbsp; +44 20 7942 5000</div>
+          </div>
+          <div class="tl-card-body"><strong>⚠️ Reservar bilhete gratuito online em nhm.ac.uk — essencial ao sábado.</strong><br><br>Não perder: <strong>Hope</strong>, o esqueleto de baleia azul de 25 metros suspenso no Hintze Hall; a galeria dos <strong>dinossauros</strong> com T-Rex animatrónico; e a galeria dos mamíferos. Calcular 2,5 horas. Chegar às 10:00 em ponto para evitar filas.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-connector"><div class="t-pill">🚶 3 min a pé</div>Cromwell Road → Exhibition Road — museus praticamente vizinhos</div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#4a7c59">2</div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-time">12:30 – 13:15</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#b8962e,#ffe082)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">🍱 Almoço — South Kensington</div>
+            <div class="tl-card-addr">📍 Cafetaria do NHM / Thurloe Street / Exhibition Road, SW7</div>
+          </div>
+          <div class="tl-card-body">A cafetaria do Natural History Museum é conveniente (não sair do museu). Alternativa: Thurloe Street logo ali ao lado com várias opções de restaurantes para todos os gostos e preços.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-connector"><div class="t-pill">🚶 3 min a pé</div>Exhibition Road — o Science Museum fica mesmo ao lado do NHM</div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#1a5c80">3</div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-time">13:30 – 15:30</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#1a5c80,#4fc3f7)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">🚀 Science Museum <span class="tag tag-free">Gratuito</span></div>
+            <div class="tl-card-addr">📍 Exhibition Road, South Kensington, London SW7 2DD &nbsp;·&nbsp; +44 330 058 0058</div>
+          </div>
+          <div class="tl-card-body">Reservar bilhete gratuito em sciencemuseum.org.uk. Destaque: galeria de aviação com aviões reais suspensos no teto; secção espacial; e a <strong>Power Up</strong> — 50 anos de videojogos totalmente jogáveis. Contar 1,5–2h e sair descansadas para o teatro.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-connector">
+      <div class="t-pill"><span class="t-dot" style="background:#007229"></span>District Line — DIRETO!</div>South Kensington → Wimbledon, sem mudar, ~35 min · Partir às 17:45
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#5c4a1a">4</div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-time">17:30 – 18:30</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#5c4a1a,#ffe082)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">🍽️ Jantar em Wimbledon</div>
+            <div class="tl-card-addr">📍 The Broadway / Centre Court área, Wimbledon SW19</div>
+          </div>
+          <div class="tl-card-body">Vários restaurantes junto ao teatro em The Broadway. Chegar com 90 minutos de antecedência para jantar sem pressa antes do espetáculo. O teatro fica a <strong>10 minutos a pé da estação de Wimbledon</strong> — seguir The Broadway até ao número 93.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-connector"><div class="t-pill">🚶 10 min a pé</div>Wimbledon Station → The Broadway → nº 93 (New Wimbledon Theatre)</div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#4a1a6b">5</div></div>
+      <div class="tl-body">
+        <div class="tl-time">19:00 – ~21:30</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#4a1a6b,#ce93d8)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">🎭 ANNIE — New Wimbledon Theatre <span class="tag tag-show">Musical</span> <span class="tag tag-must">★ Destaque</span></div>
+            <div class="tl-card-addr">📍 93 The Broadway, Wimbledon, London SW19 1QG</div>
+          </div>
+          <div class="tl-card-body"><strong>🌟 Estreia absoluta do tour nacional — a primeira noite, 23 de maio!</strong><br><br>Com <strong>La Voix</strong> como a temível Miss Hannigan e <strong>Alex Bourne</strong> como Oliver Warbucks. Espetáculo ~2h30 com intervalo. Age guidance: 5+. Cancelas abertas 90 min antes. <em>Contactless only</em> — não aceita numerário.<br><br><strong>Regresso:</strong> Wimbledon Station → District Line → Earl's Court → Piccadilly/Central → Marble Arch. ~40–45 min.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ DIA 3 ══════════════ -->
+<div id="p-d3" class="panel">
+  <div class="day-banner d3">
+    <div class="banner-icon">🎪</div>
+    <div class="banner-text">
+      <div class="banner-eyebrow">✦ Dia Três · Domingo</div>
+      <div class="banner-title">24 de Maio · Covent Garden &amp; Regresso</div>
+      <div class="banner-sub">Check-out · Mercado coberto animado · TP1361 parte às 16:35</div>
+    </div>
+  </div>
+
+  <div class="flight-strip">
+    <div class="flight-number">TP 1361</div>
+    <div class="flight-route">
+      <div class="flight-end"><div class="flight-city">🇬🇧 Heathrow</div><div class="flight-time">partida 16:35</div></div>
+      <div class="flight-line">✈</div>
+      <div class="flight-end"><div class="flight-city">🇵🇹 Lisboa</div><div class="flight-time">chegada 19:25</div></div>
+    </div>
+  </div>
+
+  <div class="map-card">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d9922!2d-0.143!3d51.513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e3!4m5!1s0x48760542573cc18d%3A0xa394dc5bc2ad955c!2sThe%20Leonard%20Hotel!3m2!1d51.5147!2d-0.1579!4m5!1s0x487604c88fb71d35%3A0x9b2c9c95f7b3af4b!2sCovent%20Garden%2C%20London%20WC2E!3m2!1d51.5117!2d-0.124!5e0!3m2!1spt!2spt!4v1700000000013" allowfullscreen loading="lazy"></iframe>
+    <div class="map-footer">📍 The Leonard Hotel → Covent Garden → Leicester Square → Piccadilly Line → Heathrow (T2/T5)</div>
+  </div>
+
+  <div class="alert rust"><span class="alert-icon">⏰</span><div><strong>Atenção aos timings!</strong> Voo às 16:35. Estar no aeroporto às 14:30. Covent Garden → Heathrow (Piccadilly Line) demora ~55 minutos. <strong>Partir de Leicester Square até às 13:30 no máximo.</strong></div></div>
+
+  <div class="divider">Itinerário do dia</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#5c1a3a">1</div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-time">até 12:00</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#5c1a3a,#f48fb1)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">🏨 Check-out — The Leonard Hotel <span class="tag tag-hotel">Check-out</span></div>
+            <div class="tl-card-addr">📍 15 Seymour Street, Westminster, London W1H 7JW &nbsp;·&nbsp; +44 20 7935 2010</div>
+          </div>
+          <div class="tl-card-body">Check-out até às 12:00. Pedir para deixar as malas na receção caso precisem de mais tempo. Aproveitar o pequeno-almoço do hotel antes de partir.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-connector">
+      <div class="t-pill"><span class="t-dot" style="background:#DC241F"></span>Central — Marble Arch</div>→
+      <div class="t-pill"><span class="t-dot" style="background:#003399"></span>Piccadilly — Covent Garden</div>~15 min &nbsp;·&nbsp; ou táxi
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#7b1fa2">2</div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-time">12:15 – 13:30</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#7b1fa2,#ce93d8)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">🎪 Covent Garden <span class="tag tag-free">Gratuito</span></div>
+            <div class="tl-card-addr">📍 Covent Garden, London WC2E &nbsp;·&nbsp; Metro: Covent Garden (Piccadilly Line)</div>
+          </div>
+          <div class="tl-card-body">Ao domingo a praça está particularmente animada com artistas de rua, músicos e malabaristas de classe mundial. O mercado coberto tem lojas, cafés e restaurantes — ideal para almoço de despedida e últimas compras. A pé até Leicester Square para a Piccadilly Line para Heathrow.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-connector">
+      <div class="t-pill"><span class="t-dot" style="background:#003399"></span>Piccadilly Line</div>Leicester Square → Heathrow T2/T3 &nbsp;·&nbsp; ~55 min &nbsp;·&nbsp; <strong>Partir às 13:30!</strong>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#1a3a5c">3</div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-time">14:30</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#1a3a5c,#90caf9)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">🛫 Heathrow Airport — Check-in TP1361</div>
+            <div class="tl-card-addr">📍 London Heathrow Airport, Hounslow TW6 — confirmar terminal TAP antes de partir</div>
+          </div>
+          <div class="tl-card-body">Verificar terminal do voo TP1361 na app TAP ou bilhete (normalmente T2). Check-in online recomendado. Confirmar antes de sair para não perder tempo entre terminais em Heathrow.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-num" style="background:#0d1117">4</div></div>
+      <div class="tl-body">
+        <div class="tl-time">16:35 – 19:25</div>
+        <div class="tl-card">
+          <div class="tl-card-accent" style="background:linear-gradient(90deg,#b8962e,#e8c96a,#b8962e)"></div>
+          <div class="tl-card-head">
+            <div class="tl-card-name">✈️ TP1361 — Regresso a Lisboa <span class="tag tag-flight">Voo</span></div>
+            <div class="tl-card-addr">📍 Heathrow → Lisboa Humberto Delgado · Duração ~2h50</div>
+          </div>
+          <div class="tl-card-body">Regresso a casa depois de 3 dias inesquecíveis. Tempo de voo para rever as memórias: a baleia azul no Hintze Hall, a luz dourada sobre Buckingham Palace, e a emoção da estreia de Annie numa noite de sábado em Wimbledon. 🎭🦕👑🌿</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const tabs=['ov','d1','d2','d3'];
+function show(id){
+  tabs.forEach(t=>{
+    document.getElementById('p-'+t).classList.remove('active');
+    document.querySelectorAll('.nav-btn')[tabs.indexOf(t)].classList.remove('active');
+  });
+  document.getElementById('p-'+id).classList.add('active');
+  document.querySelectorAll('.nav-btn')[tabs.indexOf(id)].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
